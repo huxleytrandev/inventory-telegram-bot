@@ -27,20 +27,20 @@ def parse_command(text):
 
     return None
 
-def total_process_command(command):
+def total_process_command(command, chat_id):
     if command:
         print(f"Lệnh hợp lệ: {command}")
         print(f"Sản phẩm: {command["product_name"]}")
         print(f"Số lượng cần xử lý: {command["quantity"]}")
         result_process = detail_handle_command(command["command"], command['product_name'], command["quantity"])
-        status_code = send_message_to_user(result_process)
+        status_code = send_message_to_user(chat_id, result_process)
         return {
             "reply": result_process,
             "status_code": status_code
         }
     else:
-        reply = "Không phải lệnh hợp lệ, bỏ qua"
-        status_code = send_message_to_user(reply)
+        reply = "❌Không phải lệnh hợp lệ."
+        status_code = send_message_to_user(chat_id,reply)
         return {
             "reply": reply,
             "status_code": status_code

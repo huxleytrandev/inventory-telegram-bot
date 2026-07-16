@@ -20,8 +20,8 @@ while True:
             offset = update["update_id"] + 1 
 
             command = parse_command(text)
-            # print(command)
-            result = total_process_command(command)
+            
+            result = total_process_command(command, chat_id)
             if result:
                 print(f"{result["reply"]}")
     

@@ -11,7 +11,6 @@ client = gspread.authorize(creds)
 
 # Mở sheet theo ID, lấy đúng sheet đầu tiên (worksheet)
 sheet = client.open_by_key(SHEET_ID).sheet1
-data = sheet.get_all_records()
 
 def find_product_row(product_name):
     cell = sheet.find(product_name)

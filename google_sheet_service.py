@@ -23,3 +23,9 @@ def get_current_quantity(row):
 
 def update_quantity(row, new_quantity):
     sheet.update_cell(row, 2, new_quantity)
+
+def get_all_products():
+    return sheet.get_all_records()
+
+def create_new_product(product_name, quantity):
+    sheet.append_row([f"{product_name}", quantity])

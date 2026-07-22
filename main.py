@@ -1,5 +1,4 @@
 import time
-from google_sheet_service import sheet
 from telegram_service import get_updates
 from telegram_service import send_message_to_user
 from process_command import parse_command
@@ -21,8 +20,8 @@ while True:
 
             command = parse_command(text)
             
-            result = total_process_command(command, chat_id)
-            if result:
-                print(f"{result["reply"]}")
+            process_result = total_process_command(command, chat_id)
+            if process_result:
+                print(f"{process_result["reply"]}")
     
     time.sleep(1)

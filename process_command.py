@@ -47,12 +47,15 @@ def detail_handle_command(command_name, product_name, handle_quantity):
     row_product = find_product_row(product_name)
     if command_name == "/them_hang":
         return add_new_product(product_name, handle_quantity)
-    elif command_name == "/xuat":
-        current_quantity = int(get_current_quantity(row_product))
-        return issue_stock(product_name,current_quantity, handle_quantity, row_product)
-    elif command_name == "/nhap":
-        current_quantity = int(get_current_quantity(row_product))
-        return receive_stock(product_name,current_quantity, handle_quantity, row_product)
-    elif row_product is None:
+    
+    if row_product is None:
         reply = f"❌ Không tìm thấy sản phẩm '{product_name}' trong kho"
         return reply
+
+    current_quantity = int(get_current_quantity(row_product))
+
+    if command_name == "/xuat":
+        return issue_stock(product_name,current_quantity, handle_quantity, row_product)
+    elif command_name == "/nhap":
+        return receive_stock(product_name,current_quantity, handle_quantity, row_product)
+    

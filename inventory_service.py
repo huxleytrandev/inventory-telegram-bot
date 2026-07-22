@@ -26,7 +26,7 @@ def is_product_exist(product_name):
 
 def add_new_product(product_name, quantity):
     if is_product_exist(product_name):
-        reply = "✅ Sản phẩm đã tồn tại trong kho, bạn hãy thêm số lượng bằng lệnh '/nhap'"
+        reply = "⚠️ Sản phẩm đã tồn tại trong kho, bạn hãy thêm số lượng bằng lệnh '/nhap'"
         return reply
     new_product = create_new_product(product_name, quantity)
     reply = f"✅ Đã thêm hàng {product_name}. Số lượng: {quantity}"

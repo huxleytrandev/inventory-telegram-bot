@@ -13,10 +13,15 @@ client = gspread.authorize(creds)
 sheet = client.open_by_key(SHEET_ID).sheet1
 
 def find_product_row(product_name):
-    cell = sheet.find(product_name)
-    if cell is None:
-        return None
-    return cell.row
+    all_records = get_all_products()
+    normalized_target = product_name.strip().lower()
+
+    for index, record in enumerate(all_records):
+        normalized_existing = record["Product Name"].strip().lower()
+        if normalized_existing == normalized_target:
+            number_row_in_sheet = index + 2
+            return number_row_in_sheet
+    return None
 
 def get_current_quantity(row):
     return sheet.cell(row, 2).value     #sheet.cell(row, collumn)
@@ -29,3 +34,16 @@ def get_all_products():
 
 def create_new_product(product_name, quantity):
     sheet.append_row([f"{product_name}", quantity])
+    # Lấy số hàng vừa thêm (hàng cuối cùng hiện có)
+    new_row = len(sheet.get_all_values())
+    
+    # Ép định dạng: không đậm, có viền
+    sheet.format(f"A{new_row}:B{new_row}", {
+        "textFormat": {"bold": False},
+        "borders": {
+            "top": {"style": "SOLID"},
+            "right": {"style": "SOLID"},
+            "left": {"style": "SOLID"},
+            "bottom": {"style": "SOLID"}
+        }
+    })
